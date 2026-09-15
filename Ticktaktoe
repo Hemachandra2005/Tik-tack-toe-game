@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+class Ticktaktoe{
+    static boolean gameover=false;
+    public  static void main(String args[]){
+        char [][] board=new char[3][3];
+        for(int row=0;row<=2;row++){
+            for(int col=0;col<3;col++){
+                board[row][col]='_';
+            }
+        }
+        char player='x';
+        char oldplayer='c';
+
+        Scanner sc=new Scanner(System.in);
+       
+        while(!gameover){
+            printboard(board);
+            System.out.println(player+"'s move can proceed by entering row and colum");
+            System.err.println("Enter the row");
+            int row=sc.nextInt();
+            System.out.println("Enter the colum");
+            int colum=sc.nextInt();
+
+            if((row != 1 || row !=2 || row !=0) || (colum !=0 || colum !=1 || colum !=2)){
+                System.out.println("Index out of 0 1 2/n Enter any other index");
+                break;
+            }
+            
+            if(board[row][colum]=='_'){
+                oldplayer=player;
+                board[row][colum]=player;
+                player= player=='x'?'o':'x'; 
+            }else{
+                System.out.println("Invalid move playe again");
+            }
+            haswon(board,oldplayer);
+        }
+        
+    }
+    public static void printboard(char [][] board){
+        System.out.println();
+        System.out.println();
+        for(int i=0;i<3;i++){
+            for(int j=0;j<3;j++){
+                System.out.print(board[i][j]);
+            }
+            System.out.println();
+        }
+         System.out.println();
+         System.out.println();
+
+    }
+    public static void haswon(char [][]board,char oldplayer){
+        char player=oldplayer;
+        for(int i=0;i<3;i++){
+            if(board[i][0]==player && board[i][1]==player && board[i][2]==player){
+               System.out.println(player +" player has won the match");
+               gameover=true;
+            }
+        if(board[0][i]==player && board[1][i]==player && board[2][i]==player){
+            System.out.println(player +" player has won the match");
+            gameover=true;
+        } 
+        }
+        
+        if(board[0][0]==player && board[1][1]==player && board[2][2]==player) {
+            System.out.println(player +" player has won the match");
+            gameover=true;
+        }
+        if(board[0][2]==player && board[1][1]==player && board[2][0]==player) {
+            System.out.println(player +" player has won the match"); 
+            gameover=true;
+        }
+
+    }
+
+}
